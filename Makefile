@@ -6,7 +6,7 @@ executable	=	my_radar
 
 comp	=	clang++
 
-flags	=	--std=c++17	-o
+flags	=	--std=c++17	-lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o
 
 obj	=	$(src:.cpp=.o)
 
