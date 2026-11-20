@@ -2,7 +2,7 @@
 
 src	=	$(wildcard src/*.cpp main.cpp)
 
-executable	=	my_radar
+exec	=	my_radar
 
 comp	=	clang++
 
@@ -10,14 +10,14 @@ flags	=	--std=c++17	-lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o
 
 obj	=	$(src:.cpp=.o)
 
-all:	$(executable)
+all:	$(exec)
 
-$(executable):
-	            $(comp) $(src) $(flags) $(executable)
+$(exec):
+	    $(comp) $(src) $(flags) $(exec)
 
 clean:
 	rm -f $(obj)
-	rm -f $(executable)
+	rm -f $(exec)
 
 fclean:	clean
 
