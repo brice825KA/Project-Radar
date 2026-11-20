@@ -10,5 +10,6 @@ int main(int argc, char **argv) {
         help();
         re 0;
     }
+    parsing_t p = stock_data(argv[1]);
     re 0;
 }
