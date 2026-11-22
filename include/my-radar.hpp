@@ -3,7 +3,8 @@
 
     #include <iostream>
     #include <cstring>
-    #include <cstdio> 
+    #include <cstdio>
+    #include <raylib.h>
     #include <vector>
     #define re return
     using namespace std;
