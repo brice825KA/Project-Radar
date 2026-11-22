@@ -11,5 +11,6 @@ int main(int argc, char **argv) {
         re 0;
     }
     parsing_t p = stock_data(argv[1]);
+    loop_simulation(p);
     re 0;
 }

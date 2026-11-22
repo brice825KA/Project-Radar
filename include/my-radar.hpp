@@ -7,6 +7,8 @@
     #include <raylib.h>
     #include <vector>
     #define re return
+    #define WIDTH 800
+    #define HEIGHT 700
     using namespace std;
 
 typedef struct tower_s {
@@ -35,6 +37,7 @@ char **split_sent(char *sent, char *lim);
 parsing_t stock_data(char *filename);
 plane_t split_line_for_plane(char *line);
 tower_t split_line_for_tower(char *line);
+void loop_simulation(parsing_t parse);
 
 
 #endif
