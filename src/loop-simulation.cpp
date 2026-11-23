@@ -72,10 +72,10 @@ void DrawMenu(parsing_t parse, Texture2D towerTexture, Texture2D background) {
 
 void loop_simulation(parsing_t parse) {
     //Inite Window
-    int FPS = 20;
+    int FPS = 60;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(WIDTH, HEIGHT, "My Radar");
-    SetTargetFPS(60);
+    SetTargetFPS(FPS);
     Texture2D towerTexture = LoadTexture("src/assets/tour.png");
     Texture2D background = LoadTexture("src/assets/map.png");
     while (!WindowShouldClose()) {
