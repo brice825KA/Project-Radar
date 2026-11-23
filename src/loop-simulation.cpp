@@ -1,10 +1,19 @@
 #include "../include/my-radar.hpp"
 
 
-void SetBackground(char *path) {
+void SetupTower(vector<tower_t> tower, Texture2D towerTexture) {
+    float targetsize = 40.0f;
+    float scale = targetsize / towerTexture.width;
+    float towerWidth = (towerTexture.width * scale) / 2.0f;
+    float towerHeight = (towerTexture.height * scale)  / 2.0f;
+    for (const auto &i: tower) {
+        // Draw Tower
+        DrawTextureEx(towerTexture, (Vector2){i.pos_x, i.pos_y}, 0.0f, scale, WHITE);
+        DrawCircleLines(i.pos_x + towerWidth, i.pos_y + towerHeight, i.rayon, RED);
+    }
 }
 
-void DrawMenu() {
+void DrawMenu(parsing_t parse, Texture2D towerTexture, Texture2D background) {
     // Drawing Rectabgle Menu
     int currentwitdh = GetScreenWidth();
     int currentheight = GetScreenHeight();
@@ -29,19 +38,20 @@ void DrawMenu() {
     if ((x >= centerX + 50 && x <= centerX + size_x - 100) && (y >= centerY + 10 && y <= centerY + size_y / 4)) {
         DrawRectangleLines(centerX + 50, centerY + 10, size_x - 100, size_y / 4, RED);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            ClearBackground(BLACK);
-            Texture2D background = LoadTexture("src/assets/map.png");
+            EndDrawing();
             Rectangle src = {0.0f, 0.0f, (float)background.width, (float)background.height};
-            Rectangle dest = {0.0f, 0.0f, (float)GetScreenWidth(), (float)GetScreenHeight()};
             while(!WindowShouldClose()) {
                 if (IsKeyPressed(KEY_Q)) {
                     break;
                 }
+                Rectangle dest = {0.0f, 0.0f, (float)GetScreenWidth(), (float)GetScreenHeight()};
                 BeginDrawing();
                 ClearBackground(BLACK);
                 DrawTexturePro(background, src, dest, {0.0f, 0.0f}, 0.0f, RAYWHITE);
+                SetupTower(parse.tour, towerTexture);
                 EndDrawing();
             }
+            BeginDrawing();
         }
 
     }
@@ -51,6 +61,9 @@ void DrawMenu() {
     if ((x >= centerX + 50 && x <= centerX + size_x - 100) && (y >= centerY * 2 + 75 && y <= centerY * 2 + 75 + size_y / 4)) {
         DrawRectangleLines(centerX + 50, centerY * 2 + 75, size_x - 100, size_y / 4, RED);
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            EndDrawing();
+            UnloadTexture(towerTexture);
+            UnloadTexture(background);
             CloseWindow();
             exit(0);
         }
@@ -62,12 +75,16 @@ void loop_simulation(parsing_t parse) {
     int FPS = 20;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(WIDTH, HEIGHT, "My Radar");
-    SetTargetFPS(20);
+    SetTargetFPS(60);
+    Texture2D towerTexture = LoadTexture("src/assets/tour.png");
+    Texture2D background = LoadTexture("src/assets/map.png");
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawMenu();
+        DrawMenu(parse, towerTexture, background);
         EndDrawing();
   }
-    CloseWindow();
+  UnloadTexture(towerTexture);
+  UnloadTexture(background);
+  CloseWindow();
 }
