@@ -7,8 +7,8 @@
     #include <raylib.h>
     #include <vector>
     #define re return
-    #define WIDTH 800
-    #define HEIGHT 700
+    #define WIDTH 1000
+    #define HEIGHT 800
     using namespace std;
 
 typedef struct tower_s {
